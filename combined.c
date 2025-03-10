@@ -68,7 +68,7 @@ int main() {
     long long n, B;
 
     while (1) {
-        printf("Choose a factorization method:\n");
+        printf("\nChoose a factorization method:\n");
         printf("1. Fermat's Factorization\n");
         printf("2. Pollard's p-1 Factorization\n");
         printf("3. Exit\n");
@@ -77,7 +77,7 @@ int main() {
 
         switch (choice) {
             case 1:
-                printf("Enter a number to factorize using Fermat's method: ");
+                printf("\n\nEnter a number to factorize using Fermat's method: ");
                 scanf("%lld", &n);
                 if (n <= 0) {
                     printf("Please enter a positive integer.\n");
@@ -86,7 +86,7 @@ int main() {
                 }
                 break;
             case 2:
-                printf("Enter the number to factorize (n): ");
+                printf("\n\nnEnter the number to factorize (n): ");
                 scanf("%lld", &n);
                 printf("Enter the bound value (B): ");
                 scanf("%lld", &B);

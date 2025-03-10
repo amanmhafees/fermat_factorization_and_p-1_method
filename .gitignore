@@ -3,4 +3,6 @@ fermat.o
 .gitignore
 pollard(p-1).exe
 pollard(p-1).o
+combined.o
+combined.exe
 .vscode
