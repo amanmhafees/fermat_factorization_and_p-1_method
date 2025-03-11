@@ -6,3 +6,4 @@ pollard(p-1).o
 combined.o
 combined.exe
 .vscode
+a.exe

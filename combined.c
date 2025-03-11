@@ -1,6 +1,48 @@
 #include <stdio.h>
 #include <math.h>
 
+// Function to compute (base^exp) % mod using modular exponentiation
+long long mod_exp(long long base, long long exp, long long mod) {
+    long long result = 1;
+    base = base % mod; // Ensure base is within mod range
+
+    while (exp > 0) {
+        if (exp % 2 == 1)  // If exp is odd, multiply base with result
+            result = (result * base) % mod;
+        
+        exp = exp >> 1; // Equivalent to exp /= 2
+        base = (base * base) % mod; // Square the base modulo mod
+    }
+    return result;
+}
+
+// Function to compute GCD using Euclidean Algorithm
+long long gcd(long long a, long long b) {
+    while (b != 0) {
+        long long temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+// Pollard's p-1 Factorization Method
+long long pollard_p_minus_1(long long n, long long B) {
+    long long a = 2; // Initial base
+
+    // Compute a^(k!) % n iteratively
+    for (long long e = 2; e <= B; e++) {
+        a = mod_exp(a, e, n); // Iteratively exponentiate a
+        long long p = gcd(a - 1, n);
+        
+        // Check if we found a non-trivial factor
+        if (p > 1 && p < n) 
+            return p;
+    }
+    
+    return -1; // Factorization failed
+}
+
 // Function to check if a number is a perfect square
 int isPerfectSquare(int num) {
     int sqrtNum = (int)sqrt(num);
@@ -23,44 +65,6 @@ void fermatFactorization(int n) {
         }
         x++;
     }
-}
-
-// Pollard's p-1 factorization method
-long long gcd(long long a, long long b) {
-    while (b) {
-        long long temp = b;
-        b = a % b;
-        a = temp;
-    }
-    return a;
-}
-
-long long mod_exp(long long base, long long exp, long long mod) {
-    long long result = 1;
-    while (exp > 0) {
-        if (exp % 2 == 1)
-            result = (result * base) % mod;
-        base = (base * base) % mod;
-        exp /= 2;
-    }
-    return result;
-}
-
-long long pollard_p_minus_1(long long n, long long B) {
-    long long a = 2;
-    long long e = 2;
-
-    while (e <= B) {
-        a = mod_exp(a, e, n); // a ← a^e mod n
-        e++;
-    }
-
-    long long p = gcd(a - 1, n);
-
-    if (p > 1 && p < n)
-        return p;  // Return the factor found
-    else
-        return -1; // Failure
 }
 
 int main() {
@@ -86,7 +90,7 @@ int main() {
                 }
                 break;
             case 2:
-                printf("\n\nnEnter the number to factorize (n): ");
+                printf("\n\nEnter the number to factorize (n): ");
                 scanf("%lld", &n);
                 printf("Enter the bound value (B): ");
                 scanf("%lld", &B);
@@ -109,4 +113,4 @@ int main() {
     }
 
     return 0;
-}
+}3
